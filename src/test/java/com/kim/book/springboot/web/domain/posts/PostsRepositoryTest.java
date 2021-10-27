@@ -1,7 +1,6 @@
 package com.kim.book.springboot.web.domain.posts;
 import com.kim.book.springboot.domain.posts.Posts;
 import com.kim.book.springboot.domain.posts.PostsRepository;
-import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
