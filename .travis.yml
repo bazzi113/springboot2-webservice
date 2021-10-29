@@ -3,19 +3,37 @@ jdk:
   - openjdk8
 
 branches:
-only:
-  - master
+  only:
+    - master
 
 before_install:
 
   chmod +x gradlew
 
+# Travis CI 서버의 HOME
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r freelec_springboot2-webservice
+  - mkdir -p deploy
+  - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+
+deploy:
+  - provider : s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: freelec-springboot-build5
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 
 notifications:
   email:
